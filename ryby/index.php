@@ -12,12 +12,21 @@
     <div class="lewyall">
         <div class="lewy1">
             <h3>Ryby zamieszkujące rzeki</h3>
-            <ol>
-                <li>Sczupak pływa w rzece Warta-Obrzycko,Wielkopolskie</li>
-                <li>Leszcz pływa w rzece Przemsza k. Okradzinowa,Śląskie</li>
-            </ol>
+            <?php
+                $con = new mysqli("127.0.0.1","root","","wendkowanie");
+                $res1 = $con->query("SELECT ryby.nazwa,lowisko.akwen,lowisko.wojewodztwo FROM ryby JOIN lowisko ON lowisko.Ryby_id=ryby.id WHERE ryby.wystepowanie LIKE '%rzeki%';");
+                $cos1 = $res1->fetch_all();
+                echo "<ol>";
+                for($i=0;$i<count($cos1);$i++)
+                {
+                    echo "<li>".$cos1[$i][0]." pływa w rzece ".$cos1[$i][1].",".$cos1[$i][2]."</li>";
+                }
+                echo "</ol>";
+            
+            ?>
         </div>
         <div class="lewy2">
+            <br>
             <h3>Ryby drapieżne naszych wód</h3>
             <table>
                 <tr>
@@ -35,14 +44,6 @@
         <p>Stronę wykonał: Paweł Lewandowski</p>
     </div>
 </body>
-<?php
-    $db = mysqli_connect ("localhost", "root","", "wendkowanie");
-    // mysqli_select_db(,$db);
-    $res = mysqli_query($db, "SELECT nazwa,");
-    $sup = mysqli_fetch_array($res);
-    
-    print_r($sup);    
 
-?>
 </html>
 
